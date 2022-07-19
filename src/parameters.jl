@@ -1,14 +1,6 @@
 export Parameter, AlgorithmicParameter
 
-export value,
-  domain,
-  name,
-  set_value!,
-  find,
-  lower_bounds,
-  upper_bounds,
-  values,
-  input_types
+export value, domain, name, set_value!, find, lower_bounds, upper_bounds, values, input_types
 
 """`AbstractParameter`
 
@@ -40,15 +32,12 @@ domain(parameter::AlgorithmicParameter{T}) where {T} = parameter.domain
 """Returns the name of a parameter."""
 name(parameter::AlgorithmicParameter{T}) where {T} = parameter.name
 
-function check_value(domain::AbstractDomain{T}, new_value::P) where {T, P <:Real}
+function check_value(domain::AbstractDomain{T}, new_value::P) where {T, P <: Real}
   T(new_value) ∈ domain || error("value should be in domain")
 end
 
 """Set value of an algorithmic parameter."""
-function set_value!(
-  parameter::AlgorithmicParameter{T},
-  new_value::F,
-) where {T, F <: AbstractFloat}
+function set_value!(parameter::AlgorithmicParameter{T}, new_value::F) where {T, F <: AbstractFloat}
   parameter.value = new_value
 end
 
@@ -73,4 +62,3 @@ end
 function values(parameters::AbstractVector{P}) where {P <: AlgorithmicParameter}
   [value(p) for p ∈ parameters]
 end
-
